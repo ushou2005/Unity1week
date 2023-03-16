@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -14,18 +15,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] bool isGround ;
     [SerializeField] bool isGenerate;
 
+    private int StageCount = 0;
+
     private Rigidbody rb;
 
     private Vector3 GeneratePosition = new Vector3(240, 0, 0);
 
-    [SerializeField] GameObject GameOver;
-
-    public enum Stages
-    {
-        stage1,
-        stage2,
-        stage3
-    }
+    [SerializeField] GameObject GameOverUI;
+    [SerializeField] GameObject ClearUI;
 
     // Start is called before the first frame update
     private void Awake()
@@ -34,6 +31,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        //最初に生成して伸ばす
         Instantiate(Ground, GeneratePosition, Quaternion.identity);
     }
 
@@ -66,7 +64,7 @@ public class GameManager : MonoBehaviour
         if(collision.gameObject.tag == "Obstacle")
         {
             Debug.Log("gameOver");
-            GameOver.SetActive(true);
+            GameOverUI.SetActive(true);
             Time.timeScale = 0;
         }
         if (collision.gameObject.tag == "Ground")
@@ -81,8 +79,20 @@ public class GameManager : MonoBehaviour
         if (other.gameObject.tag == "Goal" && isGenerate)
         {
             Instantiate(Ground, GeneratePosition, Quaternion.identity);
-
+            StageCount++;
             isGenerate = false;
+            //４回ゴールしたらクリア
+            if (StageCount == 5)
+            {
+                ClearUI.SetActive(true);
+                Time.timeScale = 0;
+            }
         }
     }
-}
+    //リトライ
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1;
+    }
+    }
