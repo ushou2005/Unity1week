@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
             vplayer.SetActive(true);
             vp.time = 10;
             vp.Play();
-            Invoke(nameof(TimeRepaire), 0.5f);
+            Invoke(nameof(TimeRepaire), 0.4f);
             Time.timeScale = 0.08f;
 
             //４回ゴールしたらクリア
