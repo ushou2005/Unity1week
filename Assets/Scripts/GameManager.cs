@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
 
     private Rigidbody rb;
 
-    private Vector3 GeneratePosition = new Vector3(220, 0, 0);
+    private Vector3 GeneratePosition = new Vector3(240, 0, 0);
+
+    [SerializeField] GameObject GameOver;
 
     public enum Stages
     {
@@ -64,6 +66,8 @@ public class GameManager : MonoBehaviour
         if(collision.gameObject.tag == "Obstacle")
         {
             Debug.Log("gameOver");
+            GameOver.SetActive(true);
+            Time.timeScale = 0;
         }
         if (collision.gameObject.tag == "Ground")
         {
