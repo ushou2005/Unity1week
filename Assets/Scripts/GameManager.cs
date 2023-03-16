@@ -3,13 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-     [SerializeField] float MoveSpeed = 1.0f;
-     [SerializeField] float JumpPower = 1.0f;
-     [SerializeField] float Timer;
+    [SerializeField] float MoveSpeed;
+    [SerializeField] float JumpPower;
+    [SerializeField] float Timer;
+
+    [SerializeField] GameObject Ground;
+
+    [SerializeField] bool isGround ;
+    [SerializeField] bool isGenerate;
 
     private Rigidbody rb;
+
+    private Vector3 GeneratePosition = new Vector3(200, 0, 0);
 
     public enum Stages
     {
@@ -22,34 +29,34 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = this.GetComponent<Rigidbody>();
-        
     }
     void Start()
     {
-        
+        Instantiate(Ground, GeneratePosition, Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         Timer += Time.deltaTime;
 
-        transform.position += new Vector3(MoveSpeed * Time.deltaTime, 0, 0);
-
         //Player移動
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             transform.position += new Vector3(0, 0, MoveSpeed * Time.deltaTime);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             transform.position += new Vector3(0, 0, -MoveSpeed * Time.deltaTime);
         }
 
         //ジャンプ
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && isGround)
+        {
             rb.AddForce(0, JumpPower, 0);
-        
+            isGround = false;
+        }
     }
     //障害物にあたった
     void OnCollisionEnter(Collision collision)
@@ -58,14 +65,20 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("gameOver");
         }
+        if (collision.gameObject.tag == "Ground")
+        {
+            isGround = true;
+        }
     }
     //goal
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Goal")
+        isGenerate = true;
+        if (other.gameObject.tag == "Goal" && isGenerate)
         {
-            Debug.Log("Clear");
+            Instantiate(Ground, GeneratePosition, Quaternion.identity);
+
+            isGenerate = false;
         }
     }
-
 }

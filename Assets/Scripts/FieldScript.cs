@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class FieldScript : MonoBehaviour
 {
-    public float Speed = 10f;
-    float DestroyTime;
+    [SerializeField] float DestroyTime;
+    [SerializeField] float FieldSpeed;
     // Start is called before the first frame update
+    private void Awake()
+    {
+      
+    }
     void Start()
     {
         
@@ -15,9 +19,9 @@ public class FieldScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position += new Vector3(FieldSpeed * Time.deltaTime, 0, 0);
         DestroyTime += Time.deltaTime;
-        transform.position += new Vector3(-Speed * Time.deltaTime, 0, 0);
-        if(DestroyTime > 10.0)
+        if(DestroyTime > 15.0)
         {
             Destroy(this.gameObject);
         }

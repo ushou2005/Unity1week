@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Goal
   - Obstacle
+  - Ground
+  - Generater
+  - GroundGoal
   layers:
   - Default
   - TransparentFX
