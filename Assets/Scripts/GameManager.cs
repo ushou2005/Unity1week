@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] VideoPlayer vp;
+    [SerializeField] GameObject vplayer;
+
     [SerializeField] float MoveSpeed;
     [SerializeField] float JumpPower;
     [SerializeField] float Timer;
 
     [SerializeField] GameObject Ground;
 
-    [SerializeField] bool isGround ;
+    [SerializeField] bool isGround;
     [SerializeField] bool isGenerate;
 
     private int StageCount = 0;
@@ -33,6 +37,8 @@ public class GameManager : MonoBehaviour
     {
         //最初に生成して伸ばす
         Instantiate(Ground, GeneratePosition, Quaternion.identity);
+
+        vp.loopPointReached += FinishPlayingVideo;
     }
 
     // Update is called once per frame
@@ -61,7 +67,7 @@ public class GameManager : MonoBehaviour
     //障害物にあたった
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Obstacle")
+        if (collision.gameObject.tag == "Obstacle")
         {
             Debug.Log("gameOver");
             GameOverUI.SetActive(true);
@@ -81,13 +87,23 @@ public class GameManager : MonoBehaviour
             Instantiate(Ground, GeneratePosition, Quaternion.identity);
             StageCount++;
             isGenerate = false;
+            vplayer.SetActive(true);
+            vp.time = 10;
+            vp.Play();
+            Invoke(nameof(TimeRepaire), 0.5f);
+            Time.timeScale = 0.08f;
+
             //４回ゴールしたらクリア
             if (StageCount == 5)
             {
                 ClearUI.SetActive(true);
-                Time.timeScale = 0;
+                Time.timeScale = 0.1f;
             }
         }
+    }
+    private void TimeRepaire()
+    {
+        Time.timeScale = 1;
     }
     //リトライ
     public void Retry()
@@ -95,4 +111,8 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
     }
+    public void FinishPlayingVideo(VideoPlayer vp)
+    {
+        vplayer.SetActive(false);
     }
+}
