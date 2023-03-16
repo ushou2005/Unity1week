@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private Rigidbody rb;
 
-    private Vector3 GeneratePosition = new Vector3(200, 0, 0);
+    private Vector3 GeneratePosition = new Vector3(220, 0, 0);
 
     public enum Stages
     {
