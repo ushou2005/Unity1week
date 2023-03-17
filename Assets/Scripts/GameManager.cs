@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float Timer;
 
     [SerializeField] GameObject Ground;
+    [SerializeField] GameObject Building;
 
     [SerializeField] bool isGround;
     [SerializeField] bool isGenerate;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     private Rigidbody rb;
 
     private Vector3 GeneratePosition = new Vector3(240, 0, 0);
+    private Vector3 BuildingGeneratePosition = new Vector3(303, 13, -28);
 
     [SerializeField] GameObject GameOverUI;
     [SerializeField] GameObject ClearUI;
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour
     {
         //最初に生成して伸ばす
         Instantiate(Ground, GeneratePosition, Quaternion.identity);
+        Instantiate(Building, BuildingGeneratePosition, Quaternion.identity);
 
         vp.loopPointReached += FinishPlayingVideo;
     }
@@ -85,6 +88,7 @@ public class GameManager : MonoBehaviour
         if (other.gameObject.tag == "Goal" && isGenerate)
         {
             Instantiate(Ground, GeneratePosition, Quaternion.identity);
+            Instantiate(Building, BuildingGeneratePosition, Quaternion.identity);
             StageCount++;
             isGenerate = false;
             vplayer.SetActive(true);
