@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
 
     private Rigidbody rb;
 
-    private Vector3 GeneratePosition = new Vector3(240, 0, 0);
+    private Vector3 GeneratePosition = new Vector3(880, 0, 0);
 
     [SerializeField] GameObject GameOverUI;
     [SerializeField] GameObject ClearUI;

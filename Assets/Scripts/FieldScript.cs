@@ -21,7 +21,7 @@ public class FieldScript : MonoBehaviour
     {
         transform.position += new Vector3(FieldSpeed * Time.deltaTime, 0, 0);
         DestroyTime += Time.deltaTime;
-        if(DestroyTime > 15.0)
+        if(DestroyTime > 60.0)
         {
             Destroy(this.gameObject);
         }
