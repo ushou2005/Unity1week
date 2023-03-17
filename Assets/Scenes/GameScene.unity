@@ -491,9 +491,8 @@ MonoBehaviour:
   MoveSpeed: 10
   JumpPower: 800
   Timer: 0
-
   Ground: {fileID: 6391895160261158587, guid: a07f79ad6c41f47b28b5a56ebf9579fb, type: 3}
-
+  Building: {fileID: 1576056666087624387, guid: 7e5429f21b972dd45852000c74f772ca, type: 3}
   isGround: 0
   isGenerate: 0
   GameOverUI: {fileID: 250452050}
@@ -544,7 +543,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
@@ -1555,9 +1554,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
 --- !u!4 &2255434393084346874 stripped
-
 Transform:
   m_CorrespondingSourceObject: {fileID: 6391895160261158586, guid: a07f79ad6c41f47b28b5a56ebf9579fb, type: 3}
   m_PrefabInstance: {fileID: 5186030662374287168}
