@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             if (StageCount == 5)
             {
                 ClearUI.SetActive(true);
-                Time.timeScale = 0.1f;
+                Time.timeScale = 0.001f;
             }
         }
     }
